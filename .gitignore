@@ -36,4 +36,4 @@ vignettes/*.pdf
 # Other Stuff
 A1/*
 .Rproj.user
-A2/*.Rproj.user
+A2/*.Rproj
