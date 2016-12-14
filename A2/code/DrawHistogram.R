@@ -4,7 +4,7 @@
 
 # Determines if only the frequency histogram of the data is plotted, or if a
 # density of a probability distribution is also plotted
-PLOT_DENSITY = 'Logistic'
+PLOT_DENSITY = 'Cauchy'
 
 DrawHistogram <- function(dataset) {
   #
@@ -12,9 +12,11 @@ DrawHistogram <- function(dataset) {
   #   dataset: An array of doubles with the data whose histogram will be plotted.
   #
   #
-  
   meanDataset = mean(dataset)
   sdDataset = sd(dataset)
+  
+  # Save plot to file
+  png(paste('images/Histogram_', PLOT_DENSITY, '.png'), width=1000, height=800)
   
   if (PLOT_DENSITY == 'Normal') {
     # Plot the histogram and add the corresponding distribution
@@ -83,13 +85,19 @@ DrawHistogram <- function(dataset) {
     curve(dlogis(x, location=distLoc, scale=distScale), col="darkblue",
           lwd=2, add=TRUE)
   } else if (PLOT_DENSITY == 'Cauchy') {
-    # TODO(jpleitao): Implement this
-  } else if (PLOT_DENSITY == 'Student') {
-    # TODO(jpleitao): Implement this
-  }
-  
-  else {
+    # Plot the histogram and add the corresponding distribution
+    histTitle = paste('Histogram with Cauchy density (alfa=', meanDataset,
+                      ', beta=', sdDataset)
+    
+    hist(dataset, freq=FALSE, main=histTitle)
+    
+    # Overlap the normal curve to the obtained histogram
+    curve(dcauchy(x, location=meanDataset, scale=sdDataset), col="darkblue",
+          lwd=2, add=TRUE)
+  } else {
     # Just plot the histogram
     hist(dataset)
   }
+  
+  dev.off()
 }
