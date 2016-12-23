@@ -3,10 +3,11 @@
 # Doctoral Program in Information Science and Technology - Statistics
 
 ComputeMaximumLikelihoodEstimations <- function(dataset) {
-  # TODO(jpleitao): Document this!
+  # Compute the maximum likelihood estimations for the parameters of the
+  # selected probability distributions (Normal, Gamma and Logistic).
   #
   # Args:
-  #
+  #   dataset: An array of doubles with the observed data.
   #
   coefsNormal <- ComputeMLE(dataset, 'Normal')
   coefsGamma <- ComputeMLE(dataset, 'Gamma')
@@ -15,20 +16,15 @@ ComputeMaximumLikelihoodEstimations <- function(dataset) {
   return(list(normal=coefsNormal, gamma=coefsGamma, logistic=coefsLogistic))
 }
 
-LikelihoodNormal <- function(dataset, mu, sigma) {
-  # TODO(jpleitao): Document this!
+ComputeMLE <- function(dataset, densityFunction) {
+  # Compute the maximum likelihood estimations for the parameters of a given
+  # selected probability distributions (Normal, Gamma and Logistic), specified
+  # in the "densityFunction" parameter.
   #
   # Args:
-  #
-  #
-  - sum(dnormal(dataset, mu, sigma, log=TRUE))
-}
-
-ComputeMLE <- function(dataset, density_function) {
-  # TODO(jpleitao): Document this!
-  #
-  # Args:
-  #
+  #   dataset: An array of doubles with the observed data.
+  #   densityFunction: A string with the name of the probability distribution
+  #                    for which the parameters are being estimated. 
   #
   library(bbmle)
   
@@ -37,7 +33,7 @@ ComputeMLE <- function(dataset, density_function) {
   
   printSummary = FALSE
   
-  if (density_function == 'Normal') {
+  if (densityFunction == 'Normal') {
     guess = list(mu=meanDataset, sigma=sdDataset)
     
     fit = mle2(function(mu, sigma) {
@@ -52,7 +48,7 @@ ComputeMLE <- function(dataset, density_function) {
     
     return(list(mu=coefs['mu'], sigma=coefs['sigma']))
     
-  } else if (density_function == 'Gamma') {
+  } else if (densityFunction == 'Gamma') {
     distShape <- meanDataset^2/sdDataset^2
     distScale <- sdDataset^2/meanDataset
     
@@ -70,7 +66,7 @@ ComputeMLE <- function(dataset, density_function) {
     
     return(list(k=coefs['k'], teta=coefs['teta']))
     
-  } else if (density_function == 'Logistic') {
+  } else if (densityFunction == 'Logistic') {
     distLoc <- meanDataset
     distScale <- sqrt(3)*(sdDataset/pi)
     
@@ -90,5 +86,25 @@ ComputeMLE <- function(dataset, density_function) {
     
   } else {
     stop('Invalid argument for function ComputeMLE!')
+  }
+}
+
+PrintEstimations <- function(estimations) {
+  # Prints the computed Maximum Likelihood Estimations for the parameters of 
+  # the considered probability distribution functions (Normal, Gamma, Logistic).
+  #
+  # Args:
+  #   estimations: The computed Maximum Likelihood Estimations for the
+  #                parameters of the considered probability distribution
+  #                functions.
+  #
+  cat('\n------------------ Maximum Likelihood Estimations -----------------\n')
+  for (i in 1:length(estimations)) {
+    cat('->', names(estimations)[i], ':\n')
+    
+    for (j in 1:length(estimations[[i]])) {
+      cat('   ', names(estimations[[i]][j]), ' = ',
+          as.numeric(estimations[[i]][j]), '\n')
+    }
   }
 }

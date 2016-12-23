@@ -3,10 +3,12 @@
 # Doctoral Program in Information Science and Technology - Statistics
 
 DrawHistograms <- function(dataset) {
-  # TODO(jpleitao): Document this!
+  # General function to draw a frequency histogram of the data overlapped with
+  # the density function of the three distributions to be considered in this
+  # work: Normal, Gamma and Logistic.
   #
   # Args:
-  #
+  #   dataset: An array of doubles with the data whose histogram will be plotted.
   #
   DrawHistogram(dataset, 'Normal')
   DrawHistogram(dataset, 'Gamma')
@@ -14,7 +16,10 @@ DrawHistograms <- function(dataset) {
 }
 
 DrawHistogram <- function(dataset, plot_density) {
-  # TODO(jpleitao): Document this!
+  # Function to draw a frequency histogram of the supplied dataset overlapped
+  # with the density function of a given probability distribution.
+  # The parameters of this probability distribution are estimated with the
+  # method of moments.
   # 
   # Args:
   #   dataset: An array of doubles with the data whose histogram will be plotted.

@@ -11,42 +11,48 @@ main <- function() {
   #    and standard deviation of the dataset).
   #
   # Add source to scripts
-  source(paste('/media/jpleitao/Data/PhD/PDCTI/Statistics/',
-               'Statistics-Assignments/A2/code/DrawHistograms.R', sep=''))
-  source(paste('/media/jpleitao/Data/PhD/PDCTI/Statistics/',
-               'Statistics-Assignments/A2/code/LoadDataset.R', sep=''))
-  source(paste('/media/jpleitao/Data/PhD/PDCTI/Statistics/',
-               'Statistics-Assignments/A2/code/',
-               'MaximumLikelihoodEstimations.R', sep=''))
-  source(paste('/media/jpleitao/Data/PhD/PDCTI/Statistics/',
-               'Statistics-Assignments/A2/code/',
-               'KolmogorovSmirnovTests.R', sep=''))
+  source('code/DrawHistograms.R')
+  source('code/LoadDataset.R')
+  source('code/MaximumLikelihoodEstimations.R')
+  source('code/DrawQQPlots.R')
+  source('code/KolmogorovSmirnovTests.R')
   
   # Load dataset
-  dataset <- LoadDataset(paste('/media/jpleitao/Data/PhD/PDCTI/Statistics/', 
-                               'Statistics-Assignments/A2/data/Amostra.xlsx',
-                               sep=''))
+  dataset <- LoadDataset(paste('data/Amostra.xlsx', sep=''))
   
   # Draw histograms and save it to a file
   # DrawHistograms(dataset)
   
-  # Draw QQ-Plots -- TODO(jpleitao): QQ-Plot with MLE estimations!
-  # DrawQQPlots(dataset)
-  
   # Maximum Likelihood Estimations
   estimations <- ComputeMaximumLikelihoodEstimations(dataset)
-  # print(estimations)
+  PrintEstimations(estimations)
   
-  # TODO(jpleitao): Pretty print the estimations
+  # Draw QQ-Plots using MLE estimations
+  DrawQQPlots(dataset, estimations)
   
   # Kolmogorov-Smirnov Test
   ComputeKolmogorovSmirnovTests(dataset, estimations)
   
-  return(c(mean(dataset), sd(dataset)))
+  # Based on the results of the Kolmogorov-Smirnov Test, and at the significance
+  # level of 95%, all of the three considered null hypothesis cannot be rejected.
+  # Nevertheless, the test for the Logistic probability distribution registers
+  # the higher p-value, meaning that this is the most likely distribution that
+  # justifies the observed data.
   
+  # Answer question 2: P(9 < X < 10) = F(10) - F(9)
+  first <- plogis(10, location=estimations$logistic$loc,
+                  scale=estimations$logistic$scal)
+  second <- plogis(9, location=estimations$logistic$loc,
+                   scale=estimations$logistic$scal) 
+  result <- first - second
+  cat('The probability of observing a concentration of the referred substance',
+      ' ranging from 9 and 10 micromicrocuries is ', result, '.\n\n')
+  
+  # Answer question 3: P(X > c) = 0.05 <=> P(X < c) = 1 - 0.05 <=> F(c) = 0.95
+  # that is, the quantile of order 95 of X
+  cat('The concentration that has probability of 0.05 of being exceeded is ',
+      qlogis(0.95, location=estimations$logistic$loc,
+             scale=estimations$logistic$scal), 'micromicrocuries.')
 }
 
-l<- main()
-
-meanDataset <- l[1]
-sdDataset <- l[2]
+main()
