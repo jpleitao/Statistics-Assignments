@@ -2,23 +2,34 @@
 # 2016/2017 School Year
 # Doctoral Program in Information Science and Technology - Statistics
 
-# Determines if only the frequency histogram of the data is plotted, or if a
-# density of a probability distribution is also plotted
-PLOT_DENSITY = 'Cauchy'
-
-DrawHistogram <- function(dataset) {
+DrawHistograms <- function(dataset) {
+  # TODO(jpleitao): Document this!
   #
   # Args:
+  #
+  #
+  DrawHistogram(dataset, 'Normal')
+  DrawHistogram(dataset, 'Gamma')
+  DrawHistogram(dataset, 'Logistic')
+}
+
+DrawHistogram <- function(dataset, plot_density) {
+  # TODO(jpleitao): Document this!
+  # 
+  # Args:
   #   dataset: An array of doubles with the data whose histogram will be plotted.
+  #   plot_density: A string containing the name of the probability distribution
+  #                 whose density function will be overlapped to the dataset's
+  #                 frequency histogram.
   #
   #
   meanDataset = mean(dataset)
   sdDataset = sd(dataset)
   
   # Save plot to file
-  png(paste('images/Histogram_', PLOT_DENSITY, '.png'), width=1000, height=800)
+  png(paste('images/Histogram_', plot_density, '.png'), width=1000, height=800)
   
-  if (PLOT_DENSITY == 'Normal') {
+  if (plot_density == 'Normal') {
     # Plot the histogram and add the corresponding distribution
     histTitle = paste('Histogram with Normal density (u=', meanDataset,
                        ', sigma=', sdDataset)
@@ -29,7 +40,7 @@ DrawHistogram <- function(dataset) {
     curve(dnorm(x, mean=meanDataset, sd=sdDataset), col="darkblue", lwd=2,
           add=TRUE)
     
-  } else if (PLOT_DENSITY == 'Gamma') {
+  } else if (plot_density == 'Gamma') {
     # Values for the parameters obtained by solving a system of equations
     distShape = meanDataset^2/sdDataset^2
     distScale = sdDataset^2/meanDataset
@@ -44,7 +55,7 @@ DrawHistogram <- function(dataset) {
     curve(dgamma(x, shape=distShape, scale=distScale), col="darkblue", lwd=2,
           add=TRUE)
     
-  } else if (PLOT_DENSITY == 'Beta') {
+  } else if (plot_density == 'Beta') {
     # Values for the parameters obtained by solving a system of equations, using
     # Wolfram Alpha. Please visit:
     # <url>https://www.wolframalpha.com/input/?i=x%2F(x%2By)%3Da,+(x+*+y)%2F(+
@@ -70,7 +81,7 @@ DrawHistogram <- function(dataset) {
     # stating that NaN values were produced. Clearly this is not an adequate
     # distribution to model the given dataset!
     
-  } else if (PLOT_DENSITY == 'Logistic') {
+  } else if (plot_density == 'Logistic') {
     # Values for the parameters obtained by solving a system of equations
     distLoc = meanDataset
     distScale = sqrt(3)*(sdDataset/pi)
@@ -84,7 +95,7 @@ DrawHistogram <- function(dataset) {
     # Overlap the beta curve to the obtained histogram
     curve(dlogis(x, location=distLoc, scale=distScale), col="darkblue",
           lwd=2, add=TRUE)
-  } else if (PLOT_DENSITY == 'Cauchy') {
+  } else if (plot_density == 'Cauchy') {
     # Plot the histogram and add the corresponding distribution
     histTitle = paste('Histogram with Cauchy density (alfa=', meanDataset,
                       ', beta=', sdDataset)

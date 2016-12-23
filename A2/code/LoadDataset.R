@@ -1,3 +1,7 @@
+# Joaquim Leitão - 2011150072
+# 2016/2017 School Year
+# Doctoral Program in Information Science and Technology - Statistics
+
 LoadDataset <- function(filePath) {
   # Loads the data contained in the specified file path. Assumes the data has
   # only one collumn and that the first element is its label.

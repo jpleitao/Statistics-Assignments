@@ -12,7 +12,7 @@ main <- function() {
   #
   # Add source to scripts
   source(paste('/media/jpleitao/Data/PhD/PDCTI/Statistics/',
-               'Statistics-Assignments/A2/code/DrawHistogram.R', sep=''))
+               'Statistics-Assignments/A2/code/DrawHistograms.R', sep=''))
   source(paste('/media/jpleitao/Data/PhD/PDCTI/Statistics/',
                'Statistics-Assignments/A2/code/LoadDataset.R', sep=''))
   
@@ -21,8 +21,11 @@ main <- function() {
                                'Statistics-Assignments/A2/data/Amostra.xlsx',
                                sep=''))
   
-  # Draw histogram and save it to a file
-  DrawHistogram(dataset)
+  # Draw histograms and save it to a file
+  # DrawHistograms(dataset)
+  
+  # Draw QQ-Plots
+  # DrawQQPlots(dataset)
   
   return(c(mean(dataset), sd(dataset)))
   
