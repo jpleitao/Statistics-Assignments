@@ -30,12 +30,17 @@ main <- function() {
   # Draw histograms and save it to a file
   # DrawHistograms(dataset)
   
-  # Draw QQ-Plots
+  # Draw QQ-Plots -- TODO(jpleitao): QQ-Plot with MLE estimations!
   # DrawQQPlots(dataset)
   
   # Maximum Likelihood Estimations
   estimations <- ComputeMaximumLikelihoodEstimations(dataset)
-  print(estimations)
+  # print(estimations)
+  
+  # TODO(jpleitao): Pretty print the estimations
+  
+  # Kolmogorov-Smirnov Test
+  ComputeKolmogorovSmirnovTests(dataset, estimations)
   
   return(c(mean(dataset), sd(dataset)))
   

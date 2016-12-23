@@ -12,13 +12,15 @@ ComputeMaximumLikelihoodEstimations <- function(dataset) {
   coefsGamma <- ComputeMLE(dataset, 'Gamma')
   coefsLogistic <- ComputeMLE(dataset, 'Logistic')
   
-  # TODO(jpleitao): Put bi-dimensional arrays, so having like:
-  # array['normal'] = {'mu', 'sigma'}
-  
-  return(c(coefsNormal, coefsGamma, coefsLogistic))
+  return(list(normal=coefsNormal, gamma=coefsGamma, logistic=coefsLogistic))
 }
 
 LikelihoodNormal <- function(dataset, mu, sigma) {
+  # TODO(jpleitao): Document this!
+  #
+  # Args:
+  #
+  #
   - sum(dnormal(dataset, mu, sigma, log=TRUE))
 }
 
@@ -48,7 +50,7 @@ ComputeMLE <- function(dataset, density_function) {
     
     coefs <- coef(fit)
     
-    return(c(coefs['mu'], coefs['sigma']))
+    return(list(mu=coefs['mu'], sigma=coefs['sigma']))
     
   } else if (density_function == 'Gamma') {
     distShape <- meanDataset^2/sdDataset^2
@@ -66,7 +68,7 @@ ComputeMLE <- function(dataset, density_function) {
     
     coefs <- coef(fit)
     
-    return(c(coefs['k'], coefs['teta']))
+    return(list(k=coefs['k'], teta=coefs['teta']))
     
   } else if (density_function == 'Logistic') {
     distLoc <- meanDataset
@@ -84,7 +86,7 @@ ComputeMLE <- function(dataset, density_function) {
     
     coefs <- coef(fit)
     
-    return(c(coefs['loc'], coefs['scal']))
+    return(list(loc=coefs['loc'], scal=coefs['scal']))
     
   } else {
     stop('Invalid argument for function ComputeMLE!')
