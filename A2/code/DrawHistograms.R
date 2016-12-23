@@ -23,15 +23,15 @@ DrawHistogram <- function(dataset, plot_density) {
   #                 frequency histogram.
   #
   #
-  meanDataset = mean(dataset)
-  sdDataset = sd(dataset)
+  meanDataset <- mean(dataset)
+  sdDataset <- sd(dataset)
   
   # Save plot to file
   png(paste('images/Histogram_', plot_density, '.png'), width=1000, height=800)
   
   if (plot_density == 'Normal') {
     # Plot the histogram and add the corresponding distribution
-    histTitle = paste('Histogram with Normal density (u=', meanDataset,
+    histTitle <- paste('Histogram with Normal density (u=', meanDataset,
                        ', sigma=', sdDataset)
     
     hist(dataset, freq=FALSE, main=histTitle)
@@ -42,11 +42,11 @@ DrawHistogram <- function(dataset, plot_density) {
     
   } else if (plot_density == 'Gamma') {
     # Values for the parameters obtained by solving a system of equations
-    distShape = meanDataset^2/sdDataset^2
-    distScale = sdDataset^2/meanDataset
+    distShape <- meanDataset^2/sdDataset^2
+    distScale <- sdDataset^2/meanDataset
     
     # Plot the histogram and add the corresponding distribution
-    histTitle = paste('Histogram with Gamma density (k=', distShape,
+    histTitle <- paste('Histogram with Gamma density (k=', distShape,
                        ', teta=', distScale)
       
     hist(dataset, freq=FALSE, main=histTitle)
@@ -60,15 +60,15 @@ DrawHistogram <- function(dataset, plot_density) {
     # Wolfram Alpha. Please visit:
     # <url>https://www.wolframalpha.com/input/?i=x%2F(x%2By)%3Da,+(x+*+y)%2F(+
     # (x+%2B+y+%2B+1)+*+(x+%2B+y)+*+(x+%2B+y)+)%3Db%5E2</url>
-    distShape1 = (-(meanDataset^3) + (meanDataset^2) -
+    distShape1 <- (-(meanDataset^3) + (meanDataset^2) -
                      meanDataset*(sdDataset^2)) / (sdDataset^2)
     
-    distShape2 = ( (meanDataset)^3 -2*(meanDataset^2) +
+    distShape2 <- ( (meanDataset)^3 -2*(meanDataset^2) +
                       meanDataset*(sdDataset^2) + meanDataset -
                       (sdDataset^2) ) / (sdDataset^2)
     
     # Plot the histogram and add the corresponding distribution
-    histTitle = paste('Histogram with Beta density (alfa=', distShape1,
+    histTitle <- paste('Histogram with Beta density (alfa=', distShape1,
                        ', beta=', distShape2)
     
     hist(dataset, freq=FALSE, main=histTitle)
@@ -83,11 +83,11 @@ DrawHistogram <- function(dataset, plot_density) {
     
   } else if (plot_density == 'Logistic') {
     # Values for the parameters obtained by solving a system of equations
-    distLoc = meanDataset
-    distScale = sqrt(3)*(sdDataset/pi)
+    distLoc <- meanDataset
+    distScale <- sqrt(3)*(sdDataset/pi)
     
     # Plot the histogram and add the corresponding distribution
-    histTitle = paste('Histogram with Logistic density (alfa=', distLoc,
+    histTitle <- paste('Histogram with Logistic density (alfa=', distLoc,
                        ', beta=', distScale)
     
     hist(dataset, freq=FALSE, main=histTitle, ylim=c(0, 0.3))
@@ -97,7 +97,7 @@ DrawHistogram <- function(dataset, plot_density) {
           lwd=2, add=TRUE)
   } else if (plot_density == 'Cauchy') {
     # Plot the histogram and add the corresponding distribution
-    histTitle = paste('Histogram with Cauchy density (alfa=', meanDataset,
+    histTitle <- paste('Histogram with Cauchy density (alfa=', meanDataset,
                       ', beta=', sdDataset)
     
     hist(dataset, freq=FALSE, main=histTitle)

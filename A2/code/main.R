@@ -15,6 +15,12 @@ main <- function() {
                'Statistics-Assignments/A2/code/DrawHistograms.R', sep=''))
   source(paste('/media/jpleitao/Data/PhD/PDCTI/Statistics/',
                'Statistics-Assignments/A2/code/LoadDataset.R', sep=''))
+  source(paste('/media/jpleitao/Data/PhD/PDCTI/Statistics/',
+               'Statistics-Assignments/A2/code/',
+               'MaximumLikelihoodEstimations.R', sep=''))
+  source(paste('/media/jpleitao/Data/PhD/PDCTI/Statistics/',
+               'Statistics-Assignments/A2/code/',
+               'KolmogorovSmirnovTests.R', sep=''))
   
   # Load dataset
   dataset <- LoadDataset(paste('/media/jpleitao/Data/PhD/PDCTI/Statistics/', 
@@ -26,6 +32,10 @@ main <- function() {
   
   # Draw QQ-Plots
   # DrawQQPlots(dataset)
+  
+  # Maximum Likelihood Estimations
+  estimations <- ComputeMaximumLikelihoodEstimations(dataset)
+  print(estimations)
   
   return(c(mean(dataset), sd(dataset)))
   

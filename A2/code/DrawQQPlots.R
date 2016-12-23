@@ -19,9 +19,9 @@ DrawQQPlot <- function(dataset, density_function) {
   # Args:
   #
   #
-  meanDataset = mean(dataset)
-  sdDataset = sd(dataset)
-  lengthPpoints = length(dataset)
+  meanDataset <- mean(dataset)
+  sdDataset <- sd(dataset)
+  lengthPpoints <- length(dataset)
   
   # Save plot to file
   # png(paste('images/QQPlot_', density_function, '.png'), width=1000, height=800)
@@ -40,8 +40,8 @@ DrawQQPlot <- function(dataset, density_function) {
            distribution=function(p) qnorm(p, mean=meanDataset, sd=sdDataset),
            col=1)
   } else if(density_function == 'Gamma') {
-    distShape = meanDataset^2/sdDataset^2
-    distScale = sdDataset^2/meanDataset
+    distShape <- meanDataset^2/sdDataset^2
+    distScale <- sdDataset^2/meanDataset
     
     # Draw QQ-Plot for the Gamma distribution
     qqplot(dataset,
@@ -55,8 +55,8 @@ DrawQQPlot <- function(dataset, density_function) {
            distribution=function(p) qgamma(p, shape=distShape, scale=distScale),
            col=1)
   } else if(density_function == 'Logistic') {
-    distLoc = meanDataset
-    distScale = sqrt(3)*(sdDataset/pi)
+    distLoc <- meanDataset
+    distScale <- sqrt(3)*(sdDataset/pi)
     
     # Draw QQ-Plot for the Logistic distribution
     qqplot(dataset,
