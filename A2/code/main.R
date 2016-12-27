@@ -21,7 +21,7 @@ main <- function() {
   dataset <- LoadDataset(paste('data/Amostra.xlsx', sep=''))
   
   # Draw histograms and save it to a file
-  # DrawHistograms(dataset)
+  DrawHistograms(dataset)
   
   # Maximum Likelihood Estimations
   estimations <- ComputeMaximumLikelihoodEstimations(dataset)
@@ -39,18 +39,18 @@ main <- function() {
   # the higher p-value, meaning that this is the most likely distribution that
   # justifies the observed data.
   
-  # Answer question 2: P(9 < X < 10) = F(10) - F(9)
+  # Answer question 2: P(9 <= X <= 10) = F(10) - F(9)
   first <- plogis(10, location=estimations$logistic$loc,
                   scale=estimations$logistic$scal)
   second <- plogis(9, location=estimations$logistic$loc,
                    scale=estimations$logistic$scal) 
   result <- first - second
   cat('The probability of observing a concentration of the referred substance',
-      ' ranging from 9 and 10 micromicrocuries is ', result, '.\n\n')
+      ' ranging from 9 and 10 micromicrocuries is', result, '.\n\n')
   
-  # Answer question 3: P(X > c) = 0.05 <=> P(X < c) = 1 - 0.05 <=> F(c) = 0.95
+  # Answer question 3: P(X > c) = 0.05 <=> P(X <= c) = 1 - 0.05 <=> F(c) = 0.95
   # that is, the quantile of order 95 of X
-  cat('The concentration that has probability of 0.05 of being exceeded is ',
+  cat('The concentration that has probability of 0.05 of being exceeded is',
       qlogis(0.95, location=estimations$logistic$loc,
              scale=estimations$logistic$scal), 'micromicrocuries.')
 }

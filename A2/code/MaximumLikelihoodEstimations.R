@@ -41,7 +41,8 @@ ComputeMLE <- function(dataset, densityFunction) {
       }, start=guess, method="L-BFGS-B")
     
     if (printSummary == TRUE) {
-      cat(summary(fit), '\n\n-----------------------------------------------\n')
+      print(summary(fit))
+      cat('\n\n-----------------------------------------------\n')
     }
     
     coefs <- coef(fit)
@@ -59,7 +60,8 @@ ComputeMLE <- function(dataset, densityFunction) {
     }, start=guess, method="L-BFGS-B")
     
     if (printSummary == TRUE) {
-      cat(summary(fit), '\n\n-----------------------------------------------\n')
+      print(summary(fit))
+      cat('\n\n-----------------------------------------------\n')
     }
     
     coefs <- coef(fit)
@@ -77,7 +79,8 @@ ComputeMLE <- function(dataset, densityFunction) {
     }, start=guess, method="L-BFGS-B")
     
     if (printSummary == TRUE) {
-      cat(summary(fit), '\n\n-----------------------------------------------\n')
+      print(summary(fit))
+      cat('\n\n-----------------------------------------------\n')
     }
     
     coefs <- coef(fit)

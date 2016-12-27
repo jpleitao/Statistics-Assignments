@@ -112,7 +112,7 @@ DrawHistogram <- function(dataset, plot_density) {
           lwd=2, add=TRUE)
   } else {
     # Just plot the histogram
-    hist(dataset)
+    hist(dataset, main='Histogram of Strontium-90 concentrations')
   }
   
   dev.off()
