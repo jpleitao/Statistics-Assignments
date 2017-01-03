@@ -1,6 +1,7 @@
 # Joaquim Leitão - 2011150072
 # 2016/2017 School Year
 # Doctoral Program in Information Science and Technology - Statistics
+# Assignment 2
 
 DrawQQPlots <- function(dataset, estimations) {
   # Draws the QQ-Plots for the the probability distribution functions considered

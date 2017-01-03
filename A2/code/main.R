@@ -1,15 +1,12 @@
 # Joaquim Leitão - 2011150072
 # 2016/2017 School Year
 # Doctoral Program in Information Science and Technology - Statistics
+# Assignment 2
 
 main <- function() {
   # Starting point of the execution.
   #
-  # Returns:
-  #    An array with the mean and the standard deviation of the dataset (This is
-  #    temporary, as it is usefull in an initial stage to easily know the mean
-  #    and standard deviation of the dataset).
-  #
+
   # Add source to scripts
   source('code/DrawHistograms.R')
   source('code/LoadDataset.R')

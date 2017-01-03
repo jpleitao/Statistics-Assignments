@@ -1,6 +1,7 @@
 # Joaquim Leitão - 2011150072
 # 2016/2017 School Year
 # Doctoral Program in Information Science and Technology - Statistics
+# Assignment 2
 
 ComputeKolmogorovSmirnovTests <- function(dataset, estimations) {
   # Performs the Kolmogorov-Smirnov Test for each of the probability

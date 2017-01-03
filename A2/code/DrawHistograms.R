@@ -1,6 +1,7 @@
 # Joaquim Leitão - 2011150072
 # 2016/2017 School Year
 # Doctoral Program in Information Science and Technology - Statistics
+# Assignment 2
 
 DrawHistograms <- function(dataset) {
   # General function to draw a frequency histogram of the data overlapped with
