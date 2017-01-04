@@ -3,25 +3,21 @@
 # Doctoral Program in Information Science and Technology - Statistics
 # Assignment 3
 
-TestIfAnova <- function(dataset) {
+TestIfAnova <- function(dataset, groups, significanceLevel) {
   # Given a dataset, the current function checks if all the required assumptions
   # to perform an Analysis of Variance (ANOVA) are met or not.
   #
   # Args:
   #   dataset: A dataframe with the observed data.
+  #   groups: The different groups considered in this exercise.
+  #   significanceLevel: The significance level to consider in the tests.
   #
   # Returns:
   #   A boolean value, indicating if the ANOVA can, or cannot, be performed.
   
   library(car)
   
-  significanceLevel = 0.05
-  confidenceLevel = 1 - significanceLevel
-  
-  # Start by getting all the age groups
-  ageGroups <- unique(dataset$Idade)
-  
-  # Let numberAgeGroups <- length(ageGroups).
+  # Let numberAgeGroups <- length(groups).
   # We will create "numberAgeGroups" groups. These will be our Xi. Each group
   # will have a dimension ni (for i ranging from 1 to "numberAgeGroups").
   # For each group we have observed a sample (xi_1, ... , xi_ni), and each xi_j
@@ -36,7 +32,7 @@ TestIfAnova <- function(dataset) {
   # Property 1: Each random variable Xi_j follows a normal distribution
   # To verify this property we must check, for each group, is the observed
   # sample (xi_1, ... , xi_ni) can be obtained from a Normal Distribution.
-  for (i in ageGroups) {
+  for (i in groups) {
     # Get data in the current group
     groupData <- subset(dataset, Idade==i)
     groupData <- groupData$Compras
@@ -46,6 +42,7 @@ TestIfAnova <- function(dataset) {
     
     # Inspect the obtained p-value
     if (testResult$p.value <= significanceLevel) {
+      print(paste('Group ', i, ' does not follow a Normal Distribution', sep=''))
       return(FALSE)
     }
   }
@@ -61,7 +58,7 @@ TestIfAnova <- function(dataset) {
   # the same? The first hypothesis seems a bit harsh, so I'am pretty sure it is
   # the second one!
   
-  if (length(ageGroups) > 1) {
+  if (length(groups) > 1) {
     # Perform Levene Test for homogeneity of variance accross the groups
     temp <- data.frame(Compras=dataset$Compras, Idade=factor(dataset$Idade))
     leveneResult <- leveneTest(Compras ~ Idade, data=temp)
