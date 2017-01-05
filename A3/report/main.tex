@@ -101,7 +101,7 @@ In the current section the two proposed tests to relate fast-food purchases with
 
 \subsection{Purchases by Women}
 
-As a starting point it was intended to analyse the average fast-food purchases made by women, in order to determine whether or not this average value (in the previous month) was significantly higher than a given value, 2.5 in our scenario.
+As a starting point it was intended to analyse the average fast-food purchases made by women, in order to determine whether or not this average value (in the previous month) is significantly higher than a given value, 2.5 in our scenario.
 
 Taking into account that only one variable was being analysed at this point (corresponding to a subset of the collected sample) we are faced with a test for the average of a population, which may or may not be parametric. Therefore, a \emph{Student's T-Test} (T-Test) appears as the most promising test, provided its assumptions can be met.
 
@@ -128,16 +128,59 @@ $$ H0: \: m_{X} = 2.5 \: \: \: vs \: \: \: H1: m_{X} > 2.5$$
 
 where \emph{X="Average number of weekly fast-food purchases made by women in the last month"}.
 
-For this test a \emph{p-value} of $0.2779$ was registered. As this value is considerably higher than the required significance level ($0.05$) the null hypothesis is accepted, at this significance level. Such hypothesis states that the average number of weekly fast-food purchases made by women in the last month is 2.5.
+For this test an approximate \emph{p-value} of $0.2779$ was registered. As this value is considerably higher than the required significance level ($0.05$) the null hypothesis is accepted, at this significance level. Such hypothesis states that the average number of weekly fast-food purchases made by women in the last month is 2.5.
 
-Based on what was presented in this section and on the results of the performed hypothesis tests, the main conclusion to be withdrawn at this point is that it cannot be concluded that the average number of weekly fast-food purchases made by women in the last month is significantly higher than 2.5.
+Based on what was presented in this subsection and on the results of the performed hypothesis tests, the main conclusion to be withdrawn at this point is that it cannot be concluded that the average number of weekly fast-food purchases made by women in the last month is significantly higher than 2.5.
 
 \subsection{Purchases by Women and Men}
 
+Extending the analysis performed in the previous subsection, the second proposed exercise intended to compare the average fast-food purchases by both women and men, in order to determine if the average purchases by women is significantly higher than the ones made by men.
 
+In such an exercise it is intended to compare the means of two populations: The average purchases by women and by men. Therefore, a \emph{Student's T-Test} (T-Test) appears as the most promising significance test to be performed. Similarly to what was done in the previous subsection, prior to the execution of the test, its assumptions must be met.
+
+When comparing the means of two populations the T-Test has two possible formulations, one applied when the collected samples are independent, and another when in the presence of paired samples. As purchases by women and men have no relation between then, therefore there is no pairing between collected samples of the two populations, in the current exercise a T-Test for independent samples is considered.
+
+Besides assuming the independence of the corresponding random variables, this T-Test also assumes the normality of both variables. When one of the variables (or both) does not follow a normal distribution the test can still be applied, provided a high number of samples is collected for both variables (higher than 30). In this scenario, an approximated \emph{p-value} is obtained.
+
+To this end, the analysis in this exercise started by performing a \emph{Shapiro-Wilk} test for normality in both variables (purchases made by women and by men). Since the \emph{Shapiro-Wilk} test was performed in the previous exercise for the average fast-food purchases made by women, in the current exercise this test was only performed for the average fast-food purchases made by men.
+
+The normality test registered a \emph{p-value} of $2.515e^{-10}$, which is considerably smaller than the required significance level. As a result, the test's null hypothesis (stating that the variable under analysis follows a normal distribution) is rejected, at the significance level of $0.05$. This result is further supported by the histogram of the average fast-food purchases by men, presented in figure \ref{histogram_men_purchases}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.28]{images/Histogram_MenData.png}
+	\caption{Histogram of fast-food purchases by men.}
+	\label{histogram_men_purchases}
+\end{figure}
+
+Since both variables being considered in this exercise registered considerably small \emph{p-values} in their normality tests, at the required significance level, their normality cannot be accepted; however, taking into account that the number of collected samples for each variable is considerably higher ($168$ for women and $176$ for men, which are both higher than $30$), the T-Test can still be applied and an approximate \emph{p-value} will be obtained.
+
+As a result, the following hypothesis were considered in the T-Test:
+
+$$ H0: \: m_{X} - m_{Y} = 0 \: \: \: vs \: \: \: H1: m_{X} - m_{Y} > 0$$
+
+where \emph{X="Average number of fast-food purchases per week made by women in the last month"} and \emph{Y="Average number of fast-food purchases per week made by men in the last month"}.
+
+The T-Test for independent samples considers two distinct test statistics to be computed, depending on the equality (or not) of the variances of the random variables. Therefore, the next step to be performed in this exercise is to analyse the variance equality between the two considered variables. Such a task is accomplished by performing the \emph{Levene's Test} for variance equality. In this test, a \emph{p-value} of $0.002105$ was registered. Since this value is considerably smaller than the required significance level, the null hypothesis is rejected and the variances must be considered different, at the required significance level.
+
+In this scenario (independent samples with different variances) the T-Test with Welch modification is performed. An approximate \emph{p-value} of $0.999994$ was registered. As this value is considerably higher than the required significance level, the null hypothesis of this test is accepted (again, at the required significance level).
+
+Based on what was presented in the current subsection, at the significance level of $0.05$, one can state that the  average purchases made by women and men in the previous month are not significantly different (and, therefore, the purchases made by women are not significantly higher than the ones made by men).
 
 \section{Fast-Food Purchases by Age}
 \label{age_tests}
+
+In the final exercise average fast-food purchases are intended to be analysed according to the consumers' age group, in order to determine if a significant difference is registered between the five age groups considered.
+
+When comparing two or more groups with respect to the location, \emph{ANOVA} appears as the parametric test of choice, with \emph{Kruskal-Wallis} being its non-parametric equivalent.
+
+In order to be applied, ANOVA assumes the normality of each group being considered and the homogeneity of their variances (that is, the variances of the groups must be equal). Similarly to the approach carried out in previous exercises, the first step to compare the average fast-food purchases by consumers' age group is to determine whether or not each group follows a normal distribution.
+
+To accomplish this, observed data for each group is collected and the \emph{Shapiro-Wilk} normality test is performed on each of these groups. In the current work, the normality test was first applied to age group number \textbf{2} (for people with ages ranging from 18 to 24 years old), registering a \emph{p-value} of $0.0003072$. As this is considerably smaller than the required significance level, the fast-food purchases for people in the second group cannot be accepted to follow a normal distribution, at the significance level of $0.05$.
+
+As a result, the first assumption of the ANOVA cannot be met (the normality of each group) and therefore this parametric test is not applicable to the collected data. Its non-parametric alternative, the \emph{Kruskal-Wallis} is thus applied to our collected data.
+
+When applying the \emph{Kruskal-Wallis} test for mean equality, a \emph{p-value} of $4.751e^-{06}$ was registered. As this is considerably smaller than the required significance level the null hypothesis stating that all means are equal is rejected. Therefore, at the significance level of $0.05$, fast-food purchases differ according to the consumers' age group.
 
 
 \end{document}
