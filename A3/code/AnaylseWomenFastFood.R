@@ -4,6 +4,8 @@
 # Assignment 3
 
 AnaylseWomenFastFood <- function(dataset) {
+  # Analyses the average number of weekly purchases made by women in the last
+  # month and determines if its average level is significantly higher than 2.5 .
   #
   # Args:
   #   dataset: A dataframe with the observed data.

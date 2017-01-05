@@ -4,6 +4,9 @@
 # Assignment 3
 
 AnalyseAgeGroupFastFood <- function(dataset) {
+  # Analyses the average weekly number of purchases in the last month and
+  # determines if it is significantly different according to the age group of
+  # the people that answered the survey.
   #
   # Args:
   #   dataset: A dataframe with the observed data.

@@ -18,16 +18,16 @@ main <- function() {
   dataset <- LoadDataset('data/FastFoodNovo.xlsx')
   
   # Analyse average fast-food consumptions by women
-  cat('\n------------- Analyse Fast-Food consumptions by Women -------------\n')
-  # AnaylseWomenFastFood(dataset)
+  cat('\n------------ Analyse Fast-Food consumptions by Women ------------\n')
+  AnaylseWomenFastFood(dataset)
   
   # Compare average fast-food consumptions by women and men
-  # AnalyseWomenMenFastFood(dataset)
+  cat('\n\n\n------ Analyse Fast-Food consumptions by Women and Men ------\n\n')
+  AnalyseWomenMenFastFood(dataset)
   
   # Compare average fast-food consumptions according to age group
+  cat('\n\n\n----------- Analyse Fast-Food consumptions by Age -----------\n\n')
   AnalyseAgeGroupFastFood(dataset)
-  
-  return(dataset)
 }
 
-dataset <- main()
+main()
