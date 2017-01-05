@@ -48,6 +48,10 @@ AnalyseWomenMenFastFood <- function(dataset) {
   menData <- subset(dataset, Sexo=='1')
   menData <- menData$Compras
   
+  # Just plot the histogram of the desired data
+  png('images/Histogram_MenData.png', width=1000, height=800)
+  hist(menData, main='Histogram of Men Average Fast-Food Purchases')
+  
   # Test X and Y for normality
   # In the previous exercise we have already tested X for normality and,
   # according to the Shapiro-Wilk Test at a significance level of 0.05 we reject
@@ -138,4 +142,5 @@ AnalyseWomenMenFastFood <- function(dataset) {
               'mx - my > 0', sep=''))
   }
   
+  dev.off()
 }

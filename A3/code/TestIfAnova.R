@@ -42,16 +42,19 @@ TestIfAnova <- function(dataset, groups, significanceLevel) {
     
     # Inspect the obtained p-value
     if (testResult$p.value <= significanceLevel) {
-      print(paste('Group ', i, ' does not follow a Normal Distribution', sep=''))
+      cat(paste('Group ', i, ' does not follow a Normal Distribution as a ',
+                'p-value of ', testResult$p.value, ' was registered\n', sep=''))
       return(FALSE)
+    } else {
+      cat(paste('Group ', i, ' follows a normal distribution\n', sep=''))
     }
   }
   
   # Property 2: Yes, the samples are independent from each other
-  # TODO(jpleitao): How to exactly justify this???
   
   # Property 3: Test if all the "numberAgeGroups" samples have the same variance
   #
+  # TODO(jpleitao)
   # I HAVE ONE QUESTION HERE: By saying that the samples have to have the same
   # variance are we saying that the variance of the observed samples has to be
   # the same or that the variance of the populations of the samples have to be
@@ -67,10 +70,10 @@ TestIfAnova <- function(dataset, groups, significanceLevel) {
     leveneP <- (leveneResult$`Pr(>F)`)[1]
     
     if (leveneP <= significanceLevel) {
-      print('The variances of the groups are different')
+      cat('The variances of the groups are different')
       return(FALSE)
     } else {
-      print('The variances of the groups are the same')
+      cat('The variances of the groups are the same')
       return(TRUE)
     }
   }

@@ -14,7 +14,11 @@ AnalyseAgeGroupFastFood <- function(dataset) {
   
   DEBUG = TRUE
   
-  # TODO(jpleitao): Justify here why we are considering ANOVA
+  # When comparing two or more groups with respect to the location, ANOVA
+  # appears as the parametric test of choice, with Kruskal-Wallis being its
+  # non-parametric equivalent. Therefore, in this approach, we will start by
+  # checking whether or not the ANOVA can be applied. If its assumptions cannot
+  # be verified then we will move on to the Kruskal-Wallis test.
   
   # Start by getting all the age groups
   ageGroups <- unique(dataset$Idade)
@@ -44,10 +48,6 @@ AnalyseAgeGroupFastFood <- function(dataset) {
       testGroup <- c(testGroup, rep(i, length(groupData)))
     }
     
-    cat('\n\n')
-    print(testData)
-    cat('\n')
-    
     dataF <- data.frame(y=testData, group=factor(testGroup))
     fitAnova <- lm(formula=testData ~ testGroup, data=dataF)
     
@@ -67,8 +67,6 @@ AnalyseAgeGroupFastFood <- function(dataset) {
       
       testData[[i]] <- groupData
     }
-    
-    print(testData)
     
     cat('\n-> Kruskal-Wallis Test for Mean Equality\n')
     testResult <- kruskal.test(testData)
