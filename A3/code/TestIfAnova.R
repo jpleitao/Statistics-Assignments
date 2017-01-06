@@ -53,14 +53,6 @@ TestIfAnova <- function(dataset, groups, significanceLevel) {
   # Property 2: Yes, the samples are independent from each other
   
   # Property 3: Test if all the "numberAgeGroups" samples have the same variance
-  #
-  # TODO(jpleitao)
-  # I HAVE ONE QUESTION HERE: By saying that the samples have to have the same
-  # variance are we saying that the variance of the observed samples has to be
-  # the same or that the variance of the populations of the samples have to be
-  # the same? The first hypothesis seems a bit harsh, so I'am pretty sure it is
-  # the second one!
-  
   if (length(groups) > 1) {
     # Perform Levene Test for homogeneity of variance accross the groups
     temp <- data.frame(Compras=dataset$Compras, Idade=factor(dataset$Idade))

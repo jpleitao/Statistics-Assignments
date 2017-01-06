@@ -11,21 +11,6 @@ AnalyseWomenMenFastFood <- function(dataset) {
   # Args:
   #   dataset: A dataframe with the observed data.
   
-  # TODO(jpleitao):
-  # VERY IMPORTANT NOTE: My problem here is whether or not I can perform a
-  # T-Test, because both X and Y do not follow a Normal Distribution, but their
-  # respective lengths are considerably higher than 30 (they are both higher
-  # than 100...). However, if I invoke the Central Limit Theorem to state that
-  # the means of samples approach a Normal Distribution (and therefore I can
-  # satfisfy the assumptions of the T-Test) I get a very high p-value when the
-  # means of both variables are considerably different: mean(X) = 2.586310 and
-  # mean(Y) = 3.616477 (Recall that H0: mx - my = 0 vs H1: mx - my > 0).
-  # So it doesn't make much sense to actually accept the null hypothesis and say
-  # that X and Y have the same mean (or at least say that we do not have enough
-  # statistical evidence to reject their mean equality).
-  #
-  # Is it possible that I cannot invoke the central limit theorem here??
-  
   library(car)
   
   DEBUG = TRUE
