@@ -101,7 +101,7 @@ AnalyseWomenMenFastFood <- function(dataset) {
     varianceEquality = TRUE
   }
   
-  # Perform T-Test according to the result of the Levene Test
+  # Perform T-Test according to the Levene's Test results
   #     H0: mx - my = 0
   #     H1: mx - my > 0
   cat('\n-> T-Test Mean Difference\n')
