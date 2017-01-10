@@ -11,6 +11,8 @@ AnaylseWomenFastFood <- function(dataset) {
   #   dataset: A dataframe with the observed data.
   #
   
+  library(nortest)
+  
   DEBUG = TRUE
   
   significanceLevel = 0.05
@@ -25,31 +27,32 @@ AnaylseWomenFastFood <- function(dataset) {
   png('images/Histogram_WomenData.png', width=1000, height=800)
   hist(womenData, main='Histogram of Women Average Fast-Food Purchases')
   
-  # Test for normality with Shapiro-Wilk
-  cat('\n-> Shapiro-Wilk Test for Normality\n')
-  shapiroResult <- shapiro.test(womenData)
+  # Test for normality with Kolmogorov-Smirnov Test with Lilliefors Correction
+  cat('\n-> K-S Test with Lilliefors Correction for Normality\n')
+  lillieResult <- lillie.test(womenData)
   
   if (DEBUG) {
-    print(shapiroResult)
+    print(lillieResult)
   }
   
-  if (shapiroResult$p.value <= significanceLevel) {
-    cat(paste('\nThe obtained p-value for the Shapiro-Wilk Test is smaller ',
-              'than the significance level ', significanceLevel, '. Therefore,',
-              ' at the referred significance level we reject the null ',
-              'hypothesis stating that the observed data follows a normal ',
-              'distribution.', sep=''))
+  if (lillieResult$p.value <= significanceLevel) {
+    cat(paste('\nThe obtained p-value for the K-S Test with Lilliefors ',
+              ' Correction is smaller than the significance level ',
+              significanceLevel, '. Therefore, at the referred significance ',
+              'level we reject the null hypothesis stating that the observed ',
+              'data follows a normal distribution.', sep=''))
   } else {
-    cat(paste('\nThe obtained p-value for the Shapiro-Wilk Test is larger ',
-              'than the significance level ', significanceLevel, '. Therefore,',
-              ' at the referred significance level we accept the null ',
-              'hypothesis stating that the observed data follows a normal ',
-              'distribution.', sep=''))
+    cat(paste('\nThe obtained p-value for the K-S Test with Lilliefors ',
+              'Correction is higher than the significance level ',
+              significanceLevel, '. Therefore, at the referred significance ',
+              'level we accept the null hypothesis stating that the observed ',
+              'data follows a normal distribution.', sep=''))
   }
   
-  # The obtained p-value for the Shapiro-Wilk Test is very small (7.191e-12)
-  # therefore, at the significance level of 0.05, we reject the null hypothesis
-  # stating that the observed data follows a normal distribution.
+  # The obtained p-value for the K-S Test with Lillierfors Correction is very
+  # small (2.970296e-26) therefore, at the significance level of 0.05, we
+  # reject the null hypothesis stating that the observed data follows a normal
+  # distribution.
   # Nevertheless, since the length of the observed data is considerably higher
   # than 30 (168 > 30) we can still apply the T-Test for the mean of a
   # population and obtain an approximate p-value.

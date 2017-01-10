@@ -16,6 +16,7 @@ TestIfAnova <- function(dataset, groups, significanceLevel) {
   #   A boolean value, indicating if the ANOVA can, or cannot, be performed.
   
   library(car)
+  library(nortest)
   
   # Let numberAgeGroups <- length(groups).
   # We will create "numberAgeGroups" groups. These will be our Xi. Each group
@@ -37,8 +38,13 @@ TestIfAnova <- function(dataset, groups, significanceLevel) {
     groupData <- subset(dataset, Idade==i)
     groupData <- groupData$Compras
     
-    # For the current group test the normality with the Shapiro-Wilk test
-    testResult <- shapiro.test(groupData)
+    # For the current group test the normality with the K-S Test with
+    # Lilliefors Correction or the Shapiro-Wilk Test for normality
+    if (length(groupData) > 30) {
+      testResult <- lillie.test(groupData)
+    } else {
+      testResult <- shapiro.test(groupData)
+    }
     
     # Inspect the obtained p-value
     if (testResult$p.value <= significanceLevel) {
