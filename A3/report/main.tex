@@ -366,9 +366,9 @@ In order to be applied, ANOVA assumes the normality of each group being consider
 
 To accomplish this, observed data for each group is collected and the \emph{Shapiro-Wilk} normality test or \emph{Kolmogorov-Smirnov} test for normality with \emph{Lillierfors correction} were performed on each of these groups. The choice between the tests to apply was made based on the number of observed samples in each group: For groups where at most $30$ samples were observed, the \emph{Shapiro-Wilk} test was applied; in groups where more than $30$ samples were observed, the \emph{Kolmogorov-Smirnov} test with \emph{Lilliefors correction} was applied.
 
-In the current work, the normality test was first applied to age group number \textbf{2} (for people with ages ranging from 18 to 24 years old), registering a \emph{p-value} of $1.26937327425704e^{-7}$. As this is considerably smaller than the required significance level, the fast-food purchases for people in the second group cannot be accepted to follow a normal distribution, at the significance level of $0.05$.
+In the current work, the normality test was first applied to age group number \textbf{2} (for people with ages ranging from 18 to 24 years old), registering a \emph{p-value} of $1.26937327425704e^{-7}$. As this is considerably smaller than the required significance level, the fast-food purchases for people in the second group cannot be accepted to follow a normal distribution, at the significance level of $0.05$\footnote{Even when performing the adequate normality tests to all the considered groups, in no test the null hypothesis considering the normality of the data was accepted.}.
 
-As a result, the first assumption of the ANOVA cannot be met (the normality of each group) and therefore this parametric test is not applicable to the collected data. Its non-parametric alternative, the \emph{Kruskal-Wallis} is thus applied to our collected data.
+As a result, the first assumption of the ANOVA cannot be met (the normality of each group). Even when the normality of the groups cannot be verified, the ANOVA has been proven to be resistant to deviations from the normality of the groups. As a result, it might be worth verifying additional requirements considered in this test, if the cardinality of each group is high enough. Unfortunately, group 1 has a very low cardinality (only 18) elements, and therefore this parametric test is not applicable to the collected data. Its non-parametric alternative, the \emph{Kruskal-Wallis} is thus applied to our collected data.
 
 When applying the \emph{Kruskal-Wallis} test for mean equality, a \emph{p-value} of $4.751e^{-6}$ was registered. As this is considerably smaller than the required significance level the null hypothesis stating that all means are equal is rejected. Therefore, at the significance level of $0.05$, fast-food purchases differ according to the consumers' age group.
 
@@ -494,6 +494,8 @@ TestIfAnova <- function(dataset, groups, significanceLevel) {
   #   3) All "numberAgeGroups" samples have the same
   #      variance.
   #
+  
+  stop <- FALSE
 
   # Property 1: Each random variable Xi_j follows a normal
   # distribution.
@@ -509,8 +511,12 @@ TestIfAnova <- function(dataset, groups, significanceLevel) {
     # K-S Test with Lilliefors Correction or the
     # Shapiro-Wilk Test for normality
     if (length(groupData) > 30) {
+      cat(paste('Group ', i, ' has length higher than 30 (ni=',
+                length(groupData), ')\n', sep=''))
       testResult <- lillie.test(groupData)
     } else {
+      cat(paste('Group ', i, ' has length less or equal to 30 (ni=',
+                length(groupData), ')\n', sep=''))
       testResult <- shapiro.test(groupData)
     }
 
@@ -520,11 +526,15 @@ TestIfAnova <- function(dataset, groups, significanceLevel) {
                 'Distribution as a p-value of ',
                 testResult$p.value,
                 ' was registered\n', sep=''))
-      return(FALSE)
+      stop <- TRUE
     } else {
       cat(paste('Group ', i, ' follows a normal ',
                 'distribution\n', sep=''))
     }
+  }
+  
+  if (stop) {
+    return(FALSE) 
   }
 
   # Property 2: Yes, the samples are independent from each
