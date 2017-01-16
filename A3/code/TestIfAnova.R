@@ -30,7 +30,7 @@ TestIfAnova <- function(dataset, groups, significanceLevel) {
   #   3) All "numberAgeGroups" samples have the same variance.
   #
   
-  stop = FALSE
+  stop <- FALSE
   
   # Property 1: Each random variable Xi_j follows a normal distribution
   # To verify this property we must check, for each group, is the observed
@@ -47,19 +47,18 @@ TestIfAnova <- function(dataset, groups, significanceLevel) {
                 length(groupData), ')\n', sep=''))
       testResult <- lillie.test(groupData)
     } else {
-      testResult <- shapiro.test(groupData)
       cat(paste('Group ', i, ' has length less or equal to 30 (ni=',
                 length(groupData), ')\n', sep=''))
+      testResult <- shapiro.test(groupData)
     }
     
     # Inspect the obtained p-value
     if (testResult$p.value <= significanceLevel) {
       cat(paste('Group ', i, ' does not follow a Normal Distribution as a ',
                 'p-value of ', testResult$p.value, ' was registered\n', sep=''))
-      
+      stop <- TRUE
     } else {
       cat(paste('Group ', i, ' follows a normal distribution\n', sep=''))
-      stop = TRUE
     }
   }
   
