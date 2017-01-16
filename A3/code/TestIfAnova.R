@@ -30,6 +30,8 @@ TestIfAnova <- function(dataset, groups, significanceLevel) {
   #   3) All "numberAgeGroups" samples have the same variance.
   #
   
+  stop = FALSE
+  
   # Property 1: Each random variable Xi_j follows a normal distribution
   # To verify this property we must check, for each group, is the observed
   # sample (xi_1, ... , xi_ni) can be obtained from a Normal Distribution.
@@ -41,19 +43,28 @@ TestIfAnova <- function(dataset, groups, significanceLevel) {
     # For the current group test the normality with the K-S Test with
     # Lilliefors Correction or the Shapiro-Wilk Test for normality
     if (length(groupData) > 30) {
+      cat(paste('Group ', i, ' has length higher than 30 (ni=',
+                length(groupData), ')\n', sep=''))
       testResult <- lillie.test(groupData)
     } else {
       testResult <- shapiro.test(groupData)
+      cat(paste('Group ', i, ' has length less or equal to 30 (ni=',
+                length(groupData), ')\n', sep=''))
     }
     
     # Inspect the obtained p-value
     if (testResult$p.value <= significanceLevel) {
       cat(paste('Group ', i, ' does not follow a Normal Distribution as a ',
                 'p-value of ', testResult$p.value, ' was registered\n', sep=''))
-      return(FALSE)
+      
     } else {
       cat(paste('Group ', i, ' follows a normal distribution\n', sep=''))
+      stop = TRUE
     }
+  }
+  
+  if (stop) {
+    return(FALSE) 
   }
   
   # Property 2: Yes, the samples are independent from each other
