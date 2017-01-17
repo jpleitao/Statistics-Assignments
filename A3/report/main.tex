@@ -239,7 +239,7 @@ $$ H0: \: m_{X} - m_{Y} = 0 \: \: \: vs \: \: \: H1: m_{X} - m_{Y} > 0$$
 
 where \emph{X="Average number of fast-food purchases per week made by women in the last month"} and \emph{Y="Average number of fast-food purchases per week made by men in the last month"}.
 
-The T-Test for independent samples considers two distinct test statistics to be computed, depending on the equality (or not) of the variances of the random variables. Therefore, the next step to be performed in this exercise is to analyse the variance equality between the two considered variables. Such a task is accomplished by performing the \emph{Levene's Test} for variance equality. In this test, a \emph{p-value} of $0.002105$ was registered. Since this value is considerably smaller than the required significance level, the null hypothesis is rejected and the variances must be considered different, at the required significance level.
+The T-Test for independent samples considers two distinct test statistics to be computed, depending on the equality (or not) of the variances of the random variables. Therefore, the next step to be performed in this exercise is to analyse the variance equality between the two considered variables. Such a task is accomplished by performing the \emph{Levene's Test} for variance equality. In this test, a \emph{p-value} of $0.0005344$ was registered. Since this value is considerably smaller than the required significance level, the null hypothesis is rejected and the variances must be considered different, at the required significance level.
 
 In this scenario (independent samples with different variances) the T-Test with Welch modification is performed. An approximate \emph{p-value} of $0.999994$ was registered. As this value is considerably higher than the required significance level, the null hypothesis of this test is accepted (again, at the required significance level).
 
@@ -323,7 +323,8 @@ AnalyseWomenMenFastFood <- function(dataset) {
   # Perform the Levene's Test for Variance Equality
   temp <- data.frame(Compras=dataset$Compras,
                      Sexo=factor(dataset$Sexo))
-  leveneResult <-leveneTest(Compras ~ Sexo, data=temp)
+  leveneResult <-leveneTest(Compras ~ Sexo, data=temp,
+                            center=mean)
 
   # Get p-value from Levene Test
   leveneP <- (leveneResult$`Pr(>F)`)[1]

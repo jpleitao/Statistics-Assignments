@@ -86,7 +86,7 @@ AnalyseWomenMenFastFood <- function(dataset) {
             sep=''))
   
   temp <- data.frame(Compras=dataset$Compras, Sexo=factor(dataset$Sexo))
-  leveneResult <-leveneTest(Compras ~ Sexo, data=temp)
+  leveneResult <-leveneTest(Compras ~ Sexo, data=temp, center=mean)
   
   if (DEBUG) {
     print(leveneResult)
