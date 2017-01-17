@@ -72,7 +72,7 @@ TestIfAnova <- function(dataset, groups, significanceLevel) {
   if (length(groups) > 1) {
     # Perform Levene Test for homogeneity of variance accross the groups
     temp <- data.frame(Compras=dataset$Compras, Idade=factor(dataset$Idade))
-    leveneResult <- leveneTest(Compras ~ Idade, data=temp)
+    leveneResult <- leveneTest(Compras ~ Idade, data=temp, center=mean)
     
     # Get p-value from Levene Test
     leveneP <- (leveneResult$`Pr(>F)`)[1]
